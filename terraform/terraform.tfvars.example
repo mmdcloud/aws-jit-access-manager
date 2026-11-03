@@ -1,0 +1,58 @@
+# ==============================================================================
+# AWS Just-In-Time (JIT) Access Manager - Terraform Configuration Variables
+# ==============================================================================
+
+# AWS Region to deploy infrastructure
+aws_region = "us-east-1"
+
+# Environment identifier (dev, staging, prod)
+environment = "prod"
+
+# Project identifier for resource naming and tagging
+project_name = "jit-access-manager"
+
+# DynamoDB table name for JIT request state tracking
+dynamodb_table_name = "JITAccessRequests"
+
+# Billing mode: PAY_PER_REQUEST (on-demand) or PROVISIONED
+dynamodb_billing_mode = "PAY_PER_REQUEST"
+
+# Enable Point-In-Time Recovery for compliance
+point_in_time_recovery_enabled = true
+
+# Notification emails for JIT access alerts and approvals
+notification_emails = [
+  "security-team@example.com",
+  "cloud-governance@example.com"
+]
+
+# IAM Identity Center (AWS SSO) Settings
+# Leave blank to auto-discover in the current account/region, or provide explicitly:
+# sso_instance_arn  = "arn:aws:sso:::instance/ssoins-xxxxxxxxxxxxxxxx"
+# identity_store_id = "d-xxxxxxxxxx"
+
+# Set to true to create sample JIT Permission Sets (Admin and ReadOnly)
+create_sample_permission_sets = false
+
+# Maximum permitted duration in hours for temporary access (1-24)
+max_duration_hours = 8
+
+# CloudWatch log retention period in days
+log_retention_days = 30
+
+# Lambda runtime instruction set architecture (arm64 for Graviton2 or x86_64)
+lambda_architecture = "arm64"
+
+# Reconciliation sweeper frequency (acts as fail-safe safety net)
+sweeper_schedule_expression = "rate(5 minutes)"
+
+# Allowed CORS origins for API Gateway
+cors_allowed_origins = ["*"]
+
+# Additional custom tags applied to all resources
+tags = {
+  Owner       = "SecOps"
+  Compliance  = "SOC2-ISO27001"
+  CostCenter  = "Security-Infrastructure"
+}
+
